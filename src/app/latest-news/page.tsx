@@ -4,19 +4,19 @@ import PostFade from "./PostFade"; // ✅ Correct relative path
 
 const mediaImages = [
   {
-    src: "/news-africa.webp",
+    src: "/news-africa-v2.jpg",
     alt: "Zimbabwean woman faces deportation - African news coverage",
   },
   {
-    src: "/news-evening-post.webp",
+    src: "/news-evening-post-v2.jpg",
     alt: "Protests grow in deportation row - Nottingham Evening Post",
   },
   {
-    src: "/news-nottingham-post.webp",
+    src: "/news-nottingham-post-v2.jpg",
     alt: "Women living the nightmare of deportation - Nottingham Post",
   },
   {
-    src: "/news-uk.webp",
+    src: "/news-uk-v2.jpg",
     alt: "Chinese battle 'a matter of life or death' - UK legal news",
   },
 ];
@@ -110,48 +110,63 @@ export default async function LatestNewsPage() {
           </p>
 
           {/* MEDIA COVERAGE SECTION */}
-          <div className="mt-20">
-            <a href="#news-gallery">
-              <h2 className="text-3xl font-bold text-[#2d459c] text-center mb-3 hover:underline cursor-pointer">
-                We’re on the News
-              </h2>
-            </a>
+         <div className="mt-20">
+  <a href="#news-gallery">
+    <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-[#2d459c] text-center mb-2 hover:underline cursor-pointer">
+      We’re on the News
+    </h2>
+  </a>
 
-            <p className="text-gray-700 text-center max-w-3xl mx-auto leading-relaxed mb-10">
-              Over the years, our immigration work has been featured across
-              leading newspapers and media outlets. These stories highlight our
-              commitment to defending vulnerable clients, challenging unlawful
-              removal decisions, and shaping immigration law through landmark
-              cases.
-            </p>
+  <p className="text-sm md:text-base text-gray-700 text-center max-w-3xl mx-auto leading-relaxed mb-10">
+    Over the years, our immigration work has been featured across leading
+    newspapers and media outlets. These stories highlight our commitment to
+    defending vulnerable clients, challenging unlawful removal decisions,
+    and shaping immigration law through landmark cases.
+  </p>
+
 
             {/* NEWS GALLERY */}
             <section id="news-gallery">
-              <div className="grid gap-10 md:grid-cols-2">
-                {mediaImages.map((img, i) => (
-                  <a
-                    key={i}
-                    href={img.src}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block group"
-                  >
-                    <div className="relative w-full h-80 rounded-xl overflow-hidden shadow-md group-hover:shadow-xl transition">
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="50vw"
-                        className="object-cover object-top group-hover:scale-105 transition duration-500"
-                      />
-                    </div>
-                    <p className="text-center text-gray-600 mt-3 text-sm">
-                      {img.alt}
-                    </p>
-                  </a>
-                ))}
-              </div>
-            </section>
+  <div className="max-w-6xl mx-auto grid gap-6 sm:gap-8 md:grid-cols-2">
+    {mediaImages.map((img, i) => (
+      <a
+        key={img.src}
+        href={img.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block"
+      >
+<div className="relative w-full h-72 md:h-80 rounded-2xl 
+  bg-white/40 backdrop-blur-md 
+  border border-white/30
+  shadow-lg shadow-black/10
+  group-hover:shadow-xl group-hover:shadow-black/20
+  transition-all duration-300
+  flex items-center justify-center p-[10px]">
+
+  <div className="relative w-full h-full rounded-xl overflow-hidden">
+    <Image
+      src={img.src}
+      alt={img.alt}
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      priority={i < 1}
+      placeholder="empty"
+      className="object-cover object-center group-hover:scale-105 transition duration-500"
+    />
+  </div>
+
+</div>
+
+
+          <p className="text-center font-bold text-[#2d459c] mt-2 text-xs md:text-sm leading-snug">
+          {img.alt}
+        </p>
+      </a>
+    ))}
+  </div>
+</section>
+
           </div>
 
         </div>

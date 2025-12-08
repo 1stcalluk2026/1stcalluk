@@ -47,7 +47,6 @@ export default function HomePage() {
             </span>{" "}
             specialist in UK immigration law — trusted for clear, expert guidance since 2008.
           </p>
-
           <p>
             For over 18 years, our specialist team in Nottingham has focused exclusively on immigration law.
             We do not divide our expertise across practice areas — our sole focus means we stay updated on ever-changing regulations

@@ -4,19 +4,19 @@ import PostFade from "./PostFade"; // ✅ Correct relative path
 
 const mediaImages = [
   {
-    src: "/news-africa-v2.jpg",
+    src: "/news-africa-v3.webp",
     alt: "Zimbabwean woman faces deportation - African news coverage",
   },
   {
-    src: "/news-evening-post-v2.jpg",
+    src: "/news-evening-post-v3.webp",
     alt: "Protests grow in deportation row - Nottingham Evening Post",
   },
   {
-    src: "/news-nottingham-post-v2.jpg",
+    src: "/news-nottingham-post-v3.webp",
     alt: "Women living the nightmare of deportation - Nottingham Post",
   },
   {
-    src: "/news-uk-v2.jpg",
+    src: "/news-uk-v3.webp",
     alt: "Chinese battle 'a matter of life or death' - UK legal news",
   },
 ];

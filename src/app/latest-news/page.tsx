@@ -110,7 +110,7 @@ export default async function LatestNewsPage() {
           </p>
 
           {/* MEDIA COVERAGE SECTION */}
-         <div className="mt-20">
+    <div className="mt-20 bg-[#f6f8fc] border border-[#d9e0f2] rounded-3xl shadow-md px-6 md:px-12 py-14">
   <a href="#news-gallery">
     <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-[#2d459c] text-center mb-2 hover:underline cursor-pointer">
       We’re on the News

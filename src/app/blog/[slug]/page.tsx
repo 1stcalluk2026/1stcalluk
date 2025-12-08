@@ -8,6 +8,8 @@ import ArticleActions from "@/app/components/ArticleActions";
 import PostFade from "./PostFade";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 type BlogPost = {
   _id: string;
   title: string;
@@ -21,8 +23,9 @@ type BlogPost = {
   seoDescription?: string;
 };
 
-const POST_QUERY = `
-*[_type == "blogPost" && slug.current == $slug][0]{
+/* ✅ SAFE QUERY — NO GROQ PARAMS */
+const getPostQuery = (slug: string) => `
+*[_type == "blogPost" && slug.current == "${slug}"][0]{
   _id,
   title,
   slug,
@@ -36,12 +39,6 @@ const POST_QUERY = `
 }
 `;
 
-const SLUGS_QUERY = `
-*[_type == "blogPost" && defined(slug.current)]{
-  "slug": slug.current
-}
-`;
-
 function formatDate(dateString: string) {
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
@@ -51,15 +48,22 @@ function formatDate(dateString: string) {
 }
 
 // ======================
-// META DATA
+// META DATA — NEXT 16 SAFE
 // ======================
 export async function generateMetadata(
-  { params }: any,
+  props: { params: Promise<{ slug: string }> },
   _parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = (await sanityClient.fetch(POST_QUERY, {
-    slug: params.slug,
-  })) as BlogPost | null;
+
+  const { slug } = await props.params;
+
+  if (!slug) {
+    return { title: "Article | 1st Call UK Immigration Services" };
+  }
+
+  const post = (await sanityClient.fetch(
+    getPostQuery(slug)
+  )) as BlogPost | null;
 
   if (!post) {
     return { title: "Article not found | 1st Call UK Immigration Services" };
@@ -86,20 +90,17 @@ export async function generateMetadata(
 }
 
 // ======================
-// STATIC PARAMS
+// PAGE RENDER — NEXT 16 SAFE
 // ======================
-export async function generateStaticParams() {
-  const slugs = (await sanityClient.fetch(SLUGS_QUERY)) as { slug: string }[];
-  return slugs.map((item) => ({ slug: item.slug }));
-}
+export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
 
-// ======================
-// PAGE RENDER
-// ======================
-export default async function BlogPostPage({ params }: any) {
-  const post = (await sanityClient.fetch(POST_QUERY, {
-    slug: params.slug,
-  })) as BlogPost | null;
+  const { slug } = await props.params;
+
+  if (!slug) notFound();
+
+  const post = (await sanityClient.fetch(
+    getPostQuery(slug)
+  )) as BlogPost | null;
 
   if (!post) notFound();
 
@@ -109,9 +110,8 @@ export default async function BlogPostPage({ params }: any) {
 
         {/* DATE */}
         <p className="text-sm text-gray-600 font-medium tracking-wide mb-1">
-  {formatDate(post.publishedAt)}
-</p>
-
+          {formatDate(post.publishedAt)}
+        </p>
 
         {/* TITLE */}
         <PostFade>
@@ -167,7 +167,7 @@ export default async function BlogPostPage({ params }: any) {
           </div>
         </PostFade>
 
-        {/* SHARE / COPY */}
+        {/* SHARE */}
         <ArticleActions title={post.title} />
 
       </article>

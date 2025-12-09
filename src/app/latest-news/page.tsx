@@ -16,7 +16,7 @@ const mediaImages = [
     alt: "Women living the nightmare of deportation - Nottingham Post",
   },
   {
-    src: "/news-uk-v3.webp",
+    src: "/news-uk-v4.webp",
     alt: "Chinese battle 'a matter of life or death' - UK legal news",
   },
 ];

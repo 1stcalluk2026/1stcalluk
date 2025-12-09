@@ -9,10 +9,12 @@ export async function GET(request: Request) {
     return new NextResponse("Missing slug", { status: 400 });
   }
 
-  const draft = await draftMode();
-  draft.enable();
+  // ✅ Enable draft mode
+  (await draftMode()).enable();
 
+  // ✅ FORCE redirect to LIVE SITE (not /api)
   return NextResponse.redirect(
-    new URL(`/blog/${slug}`, request.url)
+    `https://1stcalluk-96op.vercel.app/blog/${slug}`,
+    { status: 307 }
   );
 }

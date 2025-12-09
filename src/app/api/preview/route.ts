@@ -13,8 +13,6 @@ export async function GET(request: Request) {
   (await draftMode()).enable();
 
   // ✅ FORCE redirect to LIVE SITE (not /api)
-  return NextResponse.redirect(
-    `https://1stcalluk-96op.vercel.app/blog/${slug}`,
-    { status: 307 }
-  );
+  return NextResponse.redirect(`/blog/${slug}`);
+
 }

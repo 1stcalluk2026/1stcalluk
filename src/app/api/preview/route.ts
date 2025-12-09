@@ -14,5 +14,5 @@ export async function GET(request: Request) {
   draft.enable();
 
   // ✅ Correct live blog redirect
-  redirect(`https://1stcalluk-96op.vercel.app/blog/${slug}`);
+redirect(`/blog/${slug}`);
 }

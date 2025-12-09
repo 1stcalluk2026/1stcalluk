@@ -9,6 +9,8 @@ export default defineConfig({
   projectId: "gwozhq55",
   dataset: "production",
 
+  basePath: "/studio",   // ← added line (mount Studio at /studio in all environments)
+
   plugins: [
     deskTool(),
   ],

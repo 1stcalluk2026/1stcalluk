@@ -14,5 +14,5 @@ export async function GET(request: Request) {
   draft.enable();
 
   // ✅ Redirect to the blog post in preview mode
-  redirect(`/blog/${slug}`);
+redirect(`/1stcalluk-group/blog/${slug}`);
 }

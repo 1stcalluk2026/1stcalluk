@@ -101,10 +101,11 @@ export default async function BlogPostPage(props: {
   // ✅ Detect Draft Mode
   const { isEnabled } = await draftMode();
 
-  const post = (await sanityClient.fetch(getPostQuery(slug), {}, {
-    perspective: isEnabled ? "previewDrafts" : "published",
-    useCdn: !isEnabled,
-  })) as BlogPost | null;
+ const post = (await sanityClient.withConfig({
+  useCdn: !isEnabled,
+  perspective: isEnabled ? "previewDrafts" : "published",
+}).fetch(getPostQuery(slug))) as BlogPost | null;
+
 
   if (!post) notFound();
 

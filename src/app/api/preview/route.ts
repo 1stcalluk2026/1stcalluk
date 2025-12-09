@@ -9,10 +9,12 @@ export async function GET(request: Request) {
     return new NextResponse("Missing slug", { status: 400 });
   }
 
-  (await draftMode()).enable();
+  // ✅ Enable draft mode (correct usage)
+  const draft = await draftMode();
+  draft.enable();
 
+  // ✅ Correct redirect syntax for NextResponse
   return NextResponse.redirect(
-    `https://1stcalluk-96op.vercel.app/1stcalluk-group/blog/${slug}`,
-    307
+    new URL(`http://localhost:3000/blog/${slug}`)
   );
 }

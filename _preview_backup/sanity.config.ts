@@ -41,12 +41,7 @@ export default defineConfig({
                 }
 
                 // 👉 CURRENT TEMP PREVIEW URL (Vercel)
-const baseUrl =
-  window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : "https://1stcalluk-96op.vercel.app";
-
-const url = `${baseUrl}/api/preview?slug=${slug}`;
+                const url = `http://localhost:3000/api/preview?slug=${slug}`;
 
                 // When the site is live on the final domain, change ONLY this line to:
                 // const url = `https://www.1stcalluk.com/blog/${slug}?preview=true`;

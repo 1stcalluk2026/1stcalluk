@@ -9,10 +9,10 @@ export async function GET(request: Request) {
     return new Response("Missing slug", { status: 400 });
   }
 
-  // ✅ Next.js 15+ compatible draft mode enable
+  // ✅ Enable draft mode
   const draft = await draftMode();
   draft.enable();
 
-  // ✅ Redirect to the blog post in preview mode
-redirect(`/1stcalluk-group/blog/${slug}`);
+  // ✅ Correct live blog redirect
+  redirect(`https://1stcalluk-96op.vercel.app/blog/${slug}`);
 }

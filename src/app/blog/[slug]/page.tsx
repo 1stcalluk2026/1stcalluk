@@ -7,6 +7,7 @@ import { urlFor } from "../../../../sanity/lib/sanityImage";
 import ArticleActions from "@/app/components/ArticleActions";
 import PostFade from "./PostFade";
 import Link from "next/link";
+import { draftMode } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,7 @@ type BlogPost = {
   seoDescription?: string;
 };
 
-/* ✅ SAFE QUERY — NO GROQ PARAMS */
+/* ✅ SAFE QUERY */
 const getPostQuery = (slug: string) => `
 *[_type == "blogPost" && slug.current == "${slug}"][0]{
   _id,
@@ -48,13 +49,12 @@ function formatDate(dateString: string) {
 }
 
 // ======================
-// META DATA — NEXT 16 SAFE
+// META DATA — STILL PUBLISHED SAFE
 // ======================
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> },
   _parent: ResolvingMetadata
 ): Promise<Metadata> {
-
   const { slug } = await props.params;
 
   if (!slug) {
@@ -90,24 +90,27 @@ export async function generateMetadata(
 }
 
 // ======================
-// PAGE RENDER — NEXT 16 SAFE
+// ✅ PAGE RENDER — NOW SUPPORTS DRAFT PREVIEW
 // ======================
-export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
-
+export default async function BlogPostPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await props.params;
-
   if (!slug) notFound();
 
-  const post = (await sanityClient.fetch(
-    getPostQuery(slug)
-  )) as BlogPost | null;
+  // ✅ Detect Draft Mode
+  const { isEnabled } = await draftMode();
+
+  const post = (await sanityClient.fetch(getPostQuery(slug), {}, {
+    perspective: isEnabled ? "previewDrafts" : "published",
+    useCdn: !isEnabled,
+  })) as BlogPost | null;
 
   if (!post) notFound();
 
   return (
     <main className="bg-gray-50 py-16 px-4 sm:px-6">
       <article className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8 md:p-12 mt-10">
-
         {/* DATE */}
         <p className="text-sm text-gray-600 font-medium tracking-wide mb-1">
           {formatDate(post.publishedAt)}
@@ -122,7 +125,9 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
         {/* AUTHOR */}
         {post.author?.name && (
-          <p className="text-base text-gray-600 mb-8">By {post.author.name}</p>
+          <p className="text-base text-gray-600 mb-8">
+            By {post.author.name}
+          </p>
         )}
 
         {/* MAIN IMAGE */}
@@ -142,15 +147,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
         {/* BODY */}
         <PostFade>
-          <div
-            className="
-              prose 
-              prose-lg 
-              max-w-none 
-              prose-headings:text-[#2d459c] 
-              prose-a:text-[#2d459c]
-            "
-          >
+          <div className="prose prose-lg max-w-none prose-headings:text-[#2d459c] prose-a:text-[#2d459c]">
             <PortableText value={post.body} />
           </div>
         </PostFade>
@@ -169,7 +166,6 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
         {/* SHARE */}
         <ArticleActions title={post.title} />
-
       </article>
     </main>
   );

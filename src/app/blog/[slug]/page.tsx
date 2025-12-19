@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { sanityClient } from "../../../../sanity/lib/sanityClient";
+import { immigrationClient } from "../../../../sanity/lib/sanityClient";
 import { urlFor } from "../../../../sanity/lib/sanityImage";
 import ArticleActions from "@/app/components/ArticleActions";
 import PostFade from "./PostFade";
@@ -24,7 +24,6 @@ type BlogPost = {
   seoDescription?: string;
 };
 
-/* ✅ SAFE QUERY */
 const getPostQuery = (slug: string) => `
 *[_type == "blogPost" && slug.current == "${slug}"][0]{
   _id,
@@ -49,7 +48,7 @@ function formatDate(dateString: string) {
 }
 
 // ======================
-// META DATA — STILL PUBLISHED SAFE
+// META DATA
 // ======================
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> },
@@ -61,7 +60,7 @@ export async function generateMetadata(
     return { title: "Article | 1st Call UK Immigration Services" };
   }
 
-  const post = (await sanityClient.fetch(
+  const post = (await immigrationClient.fetch(
     getPostQuery(slug)
   )) as BlogPost | null;
 
@@ -90,7 +89,7 @@ export async function generateMetadata(
 }
 
 // ======================
-// ✅ PAGE RENDER — NOW SUPPORTS DRAFT PREVIEW
+// PAGE RENDER
 // ======================
 export default async function BlogPostPage(props: {
   params: Promise<{ slug: string }>;
@@ -98,45 +97,44 @@ export default async function BlogPostPage(props: {
   const { slug } = await props.params;
   if (!slug) notFound();
 
-  // ✅ Detect Draft Mode
   const { isEnabled } = await draftMode();
 
- const post = (await sanityClient.withConfig({
-  useCdn: !isEnabled,
-  perspective: isEnabled ? "previewDrafts" : "published",
-}).fetch(getPostQuery(slug))) as BlogPost | null;
-
+  const post = (await immigrationClient
+    .withConfig({
+      useCdn: !isEnabled,
+      perspective: isEnabled ? "previewDrafts" : "published",
+    })
+    .fetch(getPostQuery(slug))) as BlogPost | null;
 
   if (!post) notFound();
 
   return (
     <main className="bg-gray-50 py-16 px-4 sm:px-6">
       <article className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8 md:p-12 mt-10">
-        {/* DATE */}
         <p className="text-sm text-gray-600 font-medium tracking-wide mb-1">
           {formatDate(post.publishedAt)}
         </p>
 
-        {/* TITLE */}
         <PostFade>
           <h1 className="text-4xl md:text-5xl font-bold text-[#2d459c] leading-tight mb-6">
             {post.title}
           </h1>
         </PostFade>
 
-        {/* AUTHOR */}
         {post.author?.name && (
           <p className="text-base text-gray-600 mb-8">
             By {post.author.name}
           </p>
         )}
 
-        {/* MAIN IMAGE */}
         <PostFade>
           {post.mainImage?.asset && (
             <div className="relative w-full mb-12 rounded-xl overflow-hidden shadow-md">
               <Image
-                src={urlFor(post.mainImage.asset).width(1600).height(900).url()}
+                src={urlFor(post.mainImage.asset)
+                  .width(1600)
+                  .height(900)
+                  .url()}
                 alt={post.title}
                 width={1600}
                 height={900}
@@ -146,14 +144,12 @@ export default async function BlogPostPage(props: {
           )}
         </PostFade>
 
-        {/* BODY */}
         <PostFade>
           <div className="prose prose-lg max-w-none prose-headings:text-[#2d459c] prose-a:text-[#2d459c]">
             <PortableText value={post.body} />
           </div>
         </PostFade>
 
-        {/* BACK LINK */}
         <PostFade>
           <div className="mt-12">
             <Link
@@ -165,7 +161,6 @@ export default async function BlogPostPage(props: {
           </div>
         </PostFade>
 
-        {/* SHARE */}
         <ArticleActions title={post.title} />
       </article>
     </main>

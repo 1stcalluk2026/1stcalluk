@@ -1,10 +1,11 @@
 import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer className="bg-[#2d459c] text-white py-14 px-6 md:px-10">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10 items-start">
-        
-        {/* Column 1 — Logo & Help */}
+
+        {/* Column 1 — Logo & Help (UNCHANGED) */}
         <div className="flex flex-col items-center md:items-start space-y-4">
           <a
             href="https://www.yoshki.co/validation-results/?111105115099+109101109098101114098097100103101+100101102097117108116046115118103+104116116112115058047047049115116099097108108117107046099111109047"
@@ -12,13 +13,12 @@ export default function Footer() {
             rel="noopener noreferrer"
           >
             <Image
-            src="/IAA-logo.jpg"
-            alt="IAA Immigration Advice Authority logo"
-            width={200}
-            height={200}
-            className="w-28 h-auto rounded-md shadow-md hover:scale-105 transition-transform duration-300"
-            priority={false}
-          />
+              src="/IAA-logo.jpg"
+              alt="IAA Immigration Advice Authority logo"
+              width={200}
+              height={200}
+              className="w-28 h-auto rounded-md shadow-md hover:scale-105 transition-transform duration-300"
+            />
           </a>
 
           <h3 className="text-xl font-bold">We Can Help</h3>
@@ -41,117 +41,101 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Column 2 — Advantages */}
-        <div>
-          <h3 className="text-xl font-bold mb-4">Our Advantages</h3>
-          <ul className="space-y-2 text-gray-200 text-sm">
-            {[
-              "Free initial conference",
-              "Teams conferences available",
-              "Clients refer us to their friends and family",
-              "Affordable, caring and quality service",
-              "Family owned and run business",
-            ].map((text, index) => (
-              <li key={index} className="flex items-start">
-                <span style={{ color: "#ffffff", marginRight: "0.5rem" }}>✔</span>
-                <span className="text-gray-200">{text}</span>
-              </li>
-            ))}
-          </ul>
+        {/* Columns 2 + 3 — REORDERED ONLY */}
+        <div className="md:col-span-2 space-y-10">
 
-          {/* ⭐ Sister Companies Divider */}
-          <div className="mt-8 border-t border-white/20 pt-6">
-            <p className="text-gray-300 text-sm mb-3">
+          {/* Sister Companies — WITH LOGOS (MOVED ABOVE) */}
+          <div>
+            <p className="text-gray-300 text-sm mb-4">
               Visit our sister companies:
             </p>
 
-            {/* Buttons Side-by-Side */}
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[460px]">
 
               {/* Financial Services */}
               <a
                 href="/coming-soon"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white text-[#2d459c] font-semibold py-2 px-5 rounded-md shadow-md hover:bg-gray-100 transition text-sm flex items-center gap-2"
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 text-[#2d459c]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h18M3 12h18M3 17h18" />
-                </svg>
-                1st CallUK Financial Services
+                <Image
+                  src="/1st-calluk-financial-logo05.jpg"
+                  alt="1st Call UK Financial Services"
+                  width={200}
+                  height={90}
+                  className="object-contain"
+                />
+                <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center">
+                  Financial Services
+                </span>
               </a>
 
-              {/* 1st CallUK Group */}
+              {/* 1st Call UK Group */}
               <a
                 href="/1stcalluk-group"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white text-[#2d459c] font-semibold py-2 px-5 rounded-md shadow-md hover:bg-gray-100 transition text-sm flex items-center gap-2"
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 text-[#2d459c]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                1st CallUK Group
+                <Image
+                  src="/1st-CallUK-group-logo.jpg"
+                  alt="1st Call UK Group"
+                  width={200}
+                  height={90}
+                  className="object-contain"
+                />
+                <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center">
+                  Group
+                </span>
               </a>
 
             </div>
           </div>
 
+          {/* Our Advantages + Legal (MOVED BELOW, CONTENT UNCHANGED) */}
+          <div className="grid md:grid-cols-2 gap-10">
+
+            {/* Our Advantages */}
+            <div>
+              <h3 className="text-xl font-bold mb-4">Our Advantages</h3>
+              <ul className="space-y-2 text-gray-200 text-sm">
+                {[
+                  "Free initial conference",
+                  "Teams conferences available",
+                  "Clients refer us to their friends and family",
+                  "Affordable, caring and quality service",
+                  "Family owned and run business",
+                ].map((text, index) => (
+                  <li key={index} className="flex items-start">
+                    <span style={{ color: "#ffffff", marginRight: "0.5rem" }}>✔</span>
+                    <span className="text-gray-200">{text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h3 className="text-xl font-bold mb-4">Legal</h3>
+              <ul className="space-y-2 text-gray-200 text-sm">
+                <li><a href="/legal/consumer-contracts-regulations-2013" className="hover:underline">Consumer Contracts Regulations 2013</a></li>
+                <li><a href="/legal/disclaimer" className="hover:underline">Disclaimer</a></li>
+                <li><a href="/legal/gdpr-data-privacy-notice" className="hover:underline">GDPR Data Privacy Notice</a></li>
+                <li><a href="/legal/cookie-policy" className="hover:underline">Cookie Policy</a></li>
+                <li><a href="/legal/terms-of-website-use" className="hover:underline">Terms of Website Use</a></li>
+              </ul>
+            </div>
+
+          </div>
         </div>
 
-        {/* Column 3 — Legal */}
-        <div>
-          <h3 className="text-xl font-bold mb-4">Legal</h3>
-          <ul className="space-y-2 text-gray-200 text-sm">
-            <li>
-              <a href="/legal/consumer-contracts-regulations-2013" className="hover:underline">
-                Consumer Contracts Regulations 2013
-              </a>
-            </li>
-            <li>
-              <a href="/legal/disclaimer" className="hover:underline">
-                Disclaimer
-              </a>
-            </li>
-            <li>
-              <a href="/legal/gdpr-data-privacy-notice" className="hover:underline">
-                GDPR Data Privacy Notice
-              </a>
-            </li>
-            <li>
-              <a href="/legal/cookie-policy" className="hover:underline">
-                Cookie Policy
-              </a>
-            </li>
-            <li>
-              <a href="/legal/terms-of-website-use" className="hover:underline">
-                Terms of Website Use
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 4 — Contact + Social */}
+        {/* Column 4 — Contact + Social (UNCHANGED) */}
         <div>
           <h3 className="text-xl font-bold mb-4">Contact Us</h3>
           <p className="text-gray-200 text-sm leading-relaxed">
             📍 The Old Coach House, 25 Noel Street,
             Forest Fields, Nottingham NG7 6AQ
-            <br />
           </p>
 
           <div className="mt-5 flex flex-col gap-3">
@@ -196,6 +180,7 @@ export default function Footer() {
           </div>
 
         </div>
+
       </div>
     </footer>
   );

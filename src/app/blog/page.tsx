@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { sanityClient } from "../../../sanity/lib/sanityClient";
+import { immigrationClient } from "../../../sanity/lib/sanityClient";
 import { urlFor } from "../../../sanity/lib/sanityImage";
 import BlogFade from "./BlogFade";
 
@@ -33,12 +33,12 @@ function formatDate(dateString: string) {
 }
 
 export default async function BlogPage() {
-  const posts = await sanityClient.fetch(BLOG_QUERY);
+  const posts = await immigrationClient.fetch(BLOG_QUERY);
 
   return (
     <main className="min-h-screen bg-gray-50 py-16 px-6">
       <BlogFade>
-  <div className="max-w-6xl mx-auto animate-fade-in">
+        <div className="max-w-6xl mx-auto animate-fade-in">
           <h1 className="text-4xl font-extrabold text-center text-[#2d459c] mb-4">
             Immigration News & Insights
           </h1>
@@ -57,7 +57,10 @@ export default async function BlogPage() {
                 {post.mainImage?.asset && (
                   <div className="relative w-full aspect-[16/9] mb-4 rounded-xl overflow-hidden shadow">
                     <Image
-                      src={urlFor(post.mainImage.asset).width(800).height(450).url()}
+                      src={urlFor(post.mainImage.asset)
+                        .width(800)
+                        .height(450)
+                        .url()}
                       alt={post.title}
                       width={800}
                       height={450}

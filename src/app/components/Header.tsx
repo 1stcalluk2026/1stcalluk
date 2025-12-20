@@ -15,17 +15,18 @@ export default function Header() {
   return (
     <header className="text-white shadow-lg relative z-50">
 
-      {/* GROUP BAR — MATCHES FINANCIAL SITE */}
-      <div className="bg-[#233a86]">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-end">
-          <Link
-            href="/1stcalluk-group"
-            className="inline-flex items-center rounded-full border border-white/30 px-4 py-1.5 text-xs font-medium text-white hover:bg-white hover:text-[#233a86] transition-all duration-200"
-          >
-            1st Call UK Group
-          </Link>
-        </div>
-      </div>
+      {/* GROUP BAR */}
+<div className="bg-[#233a86]">
+  <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-end">
+    <Link
+      href="/1stcalluk-group"
+      className="inline-flex items-center rounded-full bg-white text-[#233a86] border border-white/30 px-4 py-1.5 text-xs font-medium shadow-sm hover:bg-white/90 transition-all duration-200"
+    >
+      1st Call UK Group
+    </Link>
+  </div>
+</div>
+
 
       {/* MAIN HEADER */}
       <div className="bg-[#2d459c] py-8">

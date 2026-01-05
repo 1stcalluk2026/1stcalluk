@@ -54,7 +54,7 @@ export default function Footer() {
 
               {/* Financial Services */}
               <a
-                href="/coming-soon"
+                href="https://1st-call-financial.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
@@ -73,7 +73,7 @@ export default function Footer() {
 
               {/* 1st Call UK Group */}
               <a
-                href="/1stcalluk-group"
+                href="https://1st-call-uk-group.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"

@@ -55,7 +55,7 @@ export default function Footer() {
               {/* Financial Services */}
               <a
                 href="coming-soon"
-                target="_blank"
+                target="_self"
                 rel="noopener noreferrer"
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
               >
@@ -74,7 +74,7 @@ export default function Footer() {
               {/* 1st Call UK Group */}
               <a
                 href="/1stcalluk-group"
-                target="_blank"
+                target="_self"
                 rel="noopener noreferrer"
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
               >

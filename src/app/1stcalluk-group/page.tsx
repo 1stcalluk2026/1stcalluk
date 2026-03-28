@@ -43,7 +43,6 @@ export default function ComingSoonGroup() {
           {/* Immigration Services */}
           <a
             href="https://1stcalluk.com"
-            target="_blank"
             className="bg-white text-[#0f1e4d] font-semibold py-3 px-6 rounded-md shadow-md hover:bg-gray-100 transition"
           >
             1st CallUK Immigration Services

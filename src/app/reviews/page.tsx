@@ -3,25 +3,6 @@
 import { useEffect } from "react";
 import Image from "next/image";
 
-// Simple Header Component
-const Header = () => (
-  <header className="w-full p-6 border-b border-gray-100 bg-white">
-    <div className="max-w-6xl mx-auto flex justify-between items-center">
-      <span className="text-[#2d459c] font-bold text-xl tracking-tight">1st Call UK</span>
-      <nav className="text-sm font-medium text-gray-600">Immigration Services</nav>
-    </div>
-  </header>
-);
-
-// Simple Footer Component
-const Footer = () => (
-  <footer className="w-full p-8 border-t border-gray-100 bg-gray-50 mt-12">
-    <div className="max-w-6xl mx-auto text-center">
-      <p className="text-gray-500 text-sm">© 2026 1st Call UK Immigration Services. All rights reserved.</p>
-    </div>
-  </footer>
-);
-
 export default function ReviewsPage() {
   useEffect(() => {
     const sections = document.querySelectorAll(".fade-section");
@@ -43,7 +24,6 @@ export default function ReviewsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <main className="py-16 px-6">
         <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
@@ -133,8 +113,6 @@ export default function ReviewsPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

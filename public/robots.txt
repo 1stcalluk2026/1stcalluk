@@ -1,0 +1,11 @@
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Block specific paths you don't want indexed (optional examples)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+
+# Point to your sitemap to help engines discover your pages
+Sitemap: https://www.1stcalluk.com//sitemap.xml

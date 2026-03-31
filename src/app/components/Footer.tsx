@@ -118,7 +118,7 @@ export default function Footer() {
               <h3 className="text-xl font-bold mb-4">Legal</h3>
               <ul className="space-y-2 text-gray-200 text-sm">
                 <li><a href="/legal/consumer-contracts-regulations-2013" className="hover:underline">Consumer Contracts Regulations 2013</a></li>
-                <li><a href="/legal/disclaimer" className="hover:underline">Disclaimer</a></li>
+                <li><a href="/disclaimer" className="hover:underline">Disclaimer</a></li>
                 <li><a href="/legal/gdpr-data-privacy-notice" className="hover:underline">GDPR Data Privacy Notice</a></li>
                 <li><a href="/legal/cookie-policy" className="hover:underline">Cookie Policy</a></li>
                 <li><a href="/legal/terms-of-website-use" className="hover:underline">Terms of Website Use</a></li>

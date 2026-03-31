@@ -55,11 +55,13 @@ export default function Header() {
                   📞 Call Us
                 </a>
                 <a
-                  href="mailto:info@1stcalluk.com"
-                  className="bg-white text-[#2d459c] font-semibold py-2 px-5 rounded-lg shadow hover:bg-gray-100 transition-colors duration-300 flex items-center gap-2"
-                >
-                  ✉️ Email Us
-                </a>
+                 href="mailto:info@1stcalluk.com"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                className="bg-white text-[#2d459c] font-semibold py-2 px-5 rounded-lg shadow hover:bg-gray-100 transition-colors duration-300 flex items-center gap-2"
+        >
+                 ✉️ Email Us
+              </a>
               </div>
             </div>
           </div>
@@ -161,13 +163,15 @@ export default function Header() {
               📞 Call
             </a>
 
-            <a
-              href="mailto:info@karoldigital.co.uk"
-              className="bg-white text-[#2d459c] font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-100 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              ✉ Email
-            </a>
+           <a
+           href="mailto:info@1stcalluk.com"
+           target="_blank"
+           rel="noopener noreferrer"
+           className="bg-white text-[#2d459c] font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-100 transition"
+           onClick={() => setMenuOpen(false)}
+        >
+         ✉ Email
+          </a>
           </div>
         </nav>
       </div>

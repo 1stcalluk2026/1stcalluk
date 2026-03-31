@@ -118,7 +118,7 @@ export default function Footer() {
               <h3 className="text-xl font-bold mb-4">Legal</h3>
               <ul className="space-y-2 text-gray-200 text-sm">
                 <li><a href="/legal/consumer-contracts-regulations-2013" className="hover:underline">Consumer Contracts Regulations 2013</a></li>
-                <li><a href="/disclaimer" className="hover:underline">Disclaimer</a></li>
+                <li><a href="/legal/disclaimer" className="hover:underline">Disclaimer</a></li>
                 <li><a href="/legal/gdpr-data-privacy-notice" className="hover:underline">GDPR Data Privacy Notice</a></li>
                 <li><a href="/legal/cookie-policy" className="hover:underline">Cookie Policy</a></li>
                 <li><a href="/legal/terms-of-website-use" className="hover:underline">Terms of Website Use</a></li>
@@ -139,6 +139,8 @@ export default function Footer() {
           <div className="mt-5 flex flex-col gap-3">
             <a
               href="mailto:info@1stcalluk.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white text-[#2d459c] font-semibold py-2 px-5 rounded-md hover:bg-gray-100 flex items-center justify-center transition"
             >
               ✉ Email

@@ -155,9 +155,8 @@ export default function ContactPage() {
   </p>
 
   <p className="mt-3 text-sm text-gray-600">
-    Please note: consultations are available <strong>only to clients based in the United Kingdom</strong>.
-    We are unable to call clients located outside the UK.
-  </p>
+  <strong>Note:</strong> We do not place outbound calls to international locations. Clients outside the UK are invited to contact us via email or direct call.
+</p>
 </div>
   <iframe
     src="https://calendly.com/1stcalluk-info/30min"

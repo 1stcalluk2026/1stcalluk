@@ -144,22 +144,24 @@ export default function ContactPage() {
     Book a Call (15 Minutes)
   </h2>
 <div className="mb-6 text-left">
-  <p className="text-gray-700 leading-relaxed">
-    This is a <strong>15-minute consultation</strong> with our senior advisor, <strong>James</strong>,
-    designed to discuss your enquiry and provide initial guidance.
-  </p>
+  <p className="text-sm text-gray-600">
+  <strong>15-Minute Consultation with James</strong><br />
+  A complimentary session to discuss your enquiry and provide initial guidance. 
+  Online bookings are for <strong>phone consultations only</strong> (Mon–Fri: 09:00–10:00 or after 16:30).
+</p>
 
-  <p className="mt-3 text-gray-700 leading-relaxed">
-    Appointments are available <strong>Monday to Friday</strong>, between
-    <strong> 9:00–10:00 AM</strong> or <strong>after 4:30 PM</strong>.
-  </p>
+<p className="mt-2 text-sm text-gray-600">
+  For in-person, Teams, or extended meetings, please contact us directly. 
+  <strong>Fastest contact:</strong> Call 0115 8453325 (Option 1, then 1). Note: Lines are frequently busy.
+</p>
 
-  <p className="mt-3 text-sm text-gray-600">
-  <strong>Note:</strong> We do not place outbound calls to international locations. Clients outside the UK are invited to contact us via email or direct call.
+<p className="mt-2 text-sm text-gray-600">
+  <strong>International Clients:</strong> We do not place outbound calls abroad. 
+  Please call us at your scheduled time or contact us via email.
 </p>
 </div>
   <iframe
-    src="https://calendly.com/1stcalluk-info/30min"
+    src="https://calendly.com/1stcalluk-info/15min"
     className="rounded-lg border border-gray-200 shadow-sm w-full"
     style={{
       height: "580px",

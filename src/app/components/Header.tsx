@@ -55,7 +55,7 @@ export default function Header() {
                   📞 Call Us
                 </a>
                 <a
-                 href="mailto:info@1stcalluk.com"
+                 href="https://mail.google.com/mail/?view=cm&fs=1&to=info@1stcalluk.com"
                  target="_blank"
                  rel="noopener noreferrer"
                 className="bg-white text-[#2d459c] font-semibold py-2 px-5 rounded-lg shadow hover:bg-gray-100 transition-colors duration-300 flex items-center gap-2"
@@ -164,7 +164,7 @@ export default function Header() {
             </a>
 
            <a
-           href="mailto:info@1stcalluk.com"
+           href="https://mail.google.com/mail/?view=cm&fs=1&to=info@1stcalluk.com"
            target="_blank"
            rel="noopener noreferrer"
            className="bg-white text-[#2d459c] font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-100 transition"

@@ -143,9 +143,24 @@ export default function ContactPage() {
   <h2 className="text-2xl font-bold text-[#2d459c] mb-4 text-center">
     Book a Call (30 Minutes)
   </h2>
+<div className="mb-6 text-left">
+  <p className="text-gray-700 leading-relaxed">
+    This is a <strong>15-minute consultation</strong> with our senior advisor, <strong>James</strong>,
+    designed to discuss your enquiry and provide initial guidance.
+  </p>
 
+  <p className="mt-3 text-gray-700 leading-relaxed">
+    Appointments are available <strong>Monday to Friday</strong>, between
+    <strong> 9:00–10:00 AM</strong> or <strong>after 4:30 PM</strong>.
+  </p>
+
+  <p className="mt-3 text-sm text-gray-600">
+    Please note: consultations are available <strong>only to clients based in the United Kingdom</strong>.
+    We are unable to call clients located outside the UK.
+  </p>
+</div>
   <iframe
-    src="https://calendly.com/james-ramowski/30min?hide_event_type_details=1&hide_gdpr_banner=1"
+    src="https://calendly.com/1stcalluk-info/30min"
     className="rounded-lg border border-gray-200 shadow-sm w-full"
     style={{
       height: "580px",

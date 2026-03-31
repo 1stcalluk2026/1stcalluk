@@ -141,7 +141,7 @@ export default function ContactPage() {
     {/* RIGHT — Calendly Booking Widget */}
 <div className="bg-white rounded-2xl shadow-md p-6">
   <h2 className="text-2xl font-bold text-[#2d459c] mb-4 text-center">
-    Book a Call (30 Minutes)
+    Book a Call (15 Minutes)
   </h2>
 <div className="mb-6 text-left">
   <p className="text-gray-700 leading-relaxed">

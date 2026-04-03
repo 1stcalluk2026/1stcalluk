@@ -2,22 +2,40 @@ import { NextResponse } from "next/server";
 import { writeClient } from "../../../../sanity/lib/writeClient";
 import { Resend } from "resend";
 
-// Initialize Resend with your API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { name, email, message } = await request.json();
+    // 1. Extract the captchaToken along with the form data
+    const { name, email, message, captchaToken } = await request.json();
 
-    // Validate input
-    if (!name || !email || !message) {
+    // 2. Validate input and presence of token
+    if (!name || !email || !message || !captchaToken) {
       return NextResponse.json(
-        { success: false, error: "Missing required fields" },
+        { success: false, error: "Missing required fields or captcha" },
         { status: 400 }
       );
     }
 
-    // 1️⃣ Save message to Sanity
+    // 3. VERIFY WITH GOOGLE
+    const verifyResponse = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captchaToken}`,
+      { method: "POST" }
+    );
+
+    const verifyData = await verifyResponse.json();
+
+    if (!verifyData.success) {
+      console.error("reCAPTCHA validation failed:", verifyData["error-codes"]);
+      return NextResponse.json(
+        { success: false, error: "Captcha verification failed" },
+        { status: 400 }
+      );
+    }
+
+    // --- If we reach here, the user is human! Proceed with Sanity and Resend ---
+
+    // 4. Save to Sanity
     await writeClient.create({
       _type: "contactMessage",
       name,
@@ -26,45 +44,22 @@ export async function POST(request: Request) {
       submittedAt: new Date().toISOString(),
     });
 
-    // 2️⃣ Send admin notification email
+    // 5. Send admin notification
     await resend.emails.send({
-      from: process.env.EMAIL_FROM!,       // e.g. getuhirpo@getuhirpo.com
-      to: process.env.EMAIL_TO!,           // admin inbox
+      from: process.env.EMAIL_FROM!,
+      to: process.env.EMAIL_TO!,
       subject: `New Contact Message from ${name}`,
-      text: `
-A new message has been submitted on your website:
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
-Received: ${new Date().toLocaleString()}
-      `.trim(),
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`.trim(),
     });
 
-    // 3️⃣ Auto-reply email to the user
+    // 6. Auto-reply to user
     await resend.emails.send({
-      from: process.env.EMAIL_FROM!,       // SAME FROM address
-      to: email,                           // USER email
+      from: process.env.EMAIL_FROM!,
+      to: email,
       subject: "We received your message",
-      text: `
-Hi ${name},
-
-Thank you for contacting 1st Call UK Immigration Services.
-
-We have received your message and a member of our team will reply within two working days.
-
-Your message:
-${message}
-
-Kind regards,
-1st Call UK Immigration Services
-      `.trim(),
+      text: `Hi ${name},\n\nThank you for contacting 1st Call UK. We will reply within two working days.`.trim(),
     });
 
-    // 4️⃣ Respond to frontend
     return NextResponse.json({ success: true });
 
   } catch (error) {

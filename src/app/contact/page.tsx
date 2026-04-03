@@ -10,6 +10,16 @@ export default function ContactPage() {
     message: "",
   });
   const [status, setStatus] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
+  // 1. Listen for the reCAPTCHA token from the browser event
+  useEffect(() => {
+    const handleVerify = (e: any) => {
+      setCaptchaToken(e.detail);
+    };
+    window.addEventListener("captchaVerify", handleVerify);
+    return () => window.removeEventListener("captchaVerify", handleVerify);
+  }, []);
 
   // Fade-in animation
   useEffect(() => {
@@ -30,19 +40,27 @@ export default function ContactPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    
+    if (!captchaToken) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("sending");
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        // 2. Include the captchaToken in the request to your API
+        body: JSON.stringify({ ...formData, captchaToken }),
       });
 
       const data = await res.json();
       if (data.success) {
         setStatus("sent");
         setFormData({ name: "", email: "", message: "" });
+        setCaptchaToken(null); // Reset for next time
       } else {
         setStatus("error");
       }
@@ -118,10 +136,19 @@ export default function ContactPage() {
               />
             </div>
 
+            {/* reCAPTCHA Widget */}
+            <div className="flex justify-center py-2">
+              <div 
+                className="g-recaptcha" 
+                data-sitekey="6LdRaKEsAAAAAGvyAO9Z_0TA6apXxjg8S-v90OCt"
+                data-callback="onCaptchaChange"
+              ></div>
+            </div>
+
             <button
               type="submit"
-              disabled={status === "sending"}
-              className="w-full bg-[#2d459c] hover:bg-[#22347a] text-white font-semibold py-2 rounded-md transition"
+              disabled={status === "sending" || !captchaToken}
+              className="w-full bg-[#2d459c] hover:bg-[#22347a] text-white font-semibold py-2 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === "sending" ? "Sending…" : "Send Message"}
             </button>
@@ -133,8 +160,23 @@ export default function ContactPage() {
             )}
             {status === "error" && (
               <p className="text-red-600 text-center mt-3">
+                ❌ Verification failed. Please try again.
               </p>
             )}
+
+            {/* reCAPTCHA Logic Scripts */}
+            <Script
+              src="https://www.google.com/recaptcha/api.js"
+              strategy="afterInteractive"
+            />
+
+            <script dangerouslySetInnerHTML={{
+              __html: `
+                function onCaptchaChange(value) {
+                  window.dispatchEvent(new CustomEvent('captchaVerify', { detail: value }));
+                }
+              `
+            }} />
           </form>
         </div>
 

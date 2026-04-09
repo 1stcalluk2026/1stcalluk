@@ -2,24 +2,22 @@
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "", // Added phone to state
     message: "",
   });
   const [status, setStatus] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
-  // 1. Listen for the reCAPTCHA token from the browser event
-  useEffect(() => {
-    const handleVerify = (e: any) => {
-      setCaptchaToken(e.detail);
-    };
-    window.addEventListener("captchaVerify", handleVerify);
-    return () => window.removeEventListener("captchaVerify", handleVerify);
-  }, []);
+  // Handle reCAPTCHA change directly via component
+  const onCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
 
   // Fade-in animation
   useEffect(() => {
@@ -52,15 +50,15 @@ export default function ContactPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // 2. Include the captchaToken in the request to your API
         body: JSON.stringify({ ...formData, captchaToken }),
       });
 
       const data = await res.json();
       if (data.success) {
         setStatus("sent");
-        setFormData({ name: "", email: "", message: "" });
-        setCaptchaToken(null); // Reset for next time
+        // Updated to reset phone field as well
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setCaptchaToken(null); 
       } else {
         setStatus("error");
       }
@@ -71,16 +69,13 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 py-16 px-6">
-
       {/* Calendly script (DO NOT REMOVE) */}
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="afterInteractive"
       />
 
-      {/* === TOP SECTION: FORM + BOOKING === */}
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 contact-fade">
-
         {/* LEFT — Contact Form */}
         <div className="bg-white rounded-2xl shadow-md p-8">
           <h1 className="text-3xl font-bold text-[#2d459c] mb-4 text-center">
@@ -123,6 +118,21 @@ export default function ContactPage() {
               />
             </div>
 
+            {/* Added Telephone Field */}
+            <div>
+              <label className="block text-gray-600 mb-1">Phone Number</label>
+              <input
+                type="tel"
+                required
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
+                placeholder="e.g. +44 7123 456789"
+              />
+            </div>
+
             <div>
               <label className="block text-gray-600 mb-1">Message</label>
               <textarea
@@ -136,13 +146,12 @@ export default function ContactPage() {
               />
             </div>
 
-            {/* reCAPTCHA Widget */}
+            {/* reCAPTCHA Widget - Updated to React Component */}
             <div className="flex justify-center py-2">
-              <div 
-                className="g-recaptcha" 
-                data-sitekey="6LdRaKEsAAAAAGvyAO9Z_0TA6apXxjg8S-v90OCt"
-                data-callback="onCaptchaChange"
-              ></div>
+              <ReCAPTCHA
+                sitekey="6LdRaKEsAAAAAGvyAO9Z_0TA6apXxjg8S-v90OCt"
+                onChange={onCaptchaChange}
+              />
             </div>
 
             <button
@@ -163,65 +172,45 @@ export default function ContactPage() {
                 ❌ Verification failed. Please try again.
               </p>
             )}
-
-            {/* reCAPTCHA Logic Scripts */}
-            <Script
-              src="https://www.google.com/recaptcha/api.js"
-              strategy="afterInteractive"
-            />
-
-            <script dangerouslySetInnerHTML={{
-              __html: `
-                function onCaptchaChange(value) {
-                  window.dispatchEvent(new CustomEvent('captchaVerify', { detail: value }));
-                }
-              `
-            }} />
           </form>
         </div>
 
-    {/* RIGHT — Calendly Booking Widget */}
-<div className="bg-white rounded-2xl shadow-md p-6">
-  <h2 className="text-2xl font-bold text-[#2d459c] mb-4 text-center">
-    Book a Call (15 Minutes)
-  </h2>
-<div className="mb-6 text-left">
-  <p className="text-sm text-gray-600">
-  <strong>15-Minute Consultation with James</strong><br />
-  A complimentary session to discuss your enquiry and provide initial guidance. 
-  Online bookings are for <strong>phone consultations only</strong> (Mon–Fri: 09:00–10:00 or after 16:30).
-</p>
-
-<p className="mt-2 text-sm text-gray-600">
-  For in-person, Teams, or extended meetings, please contact us directly. 
-  <strong>Fastest contact:</strong> Call 0115 8453325 (Option 1, then 1). Note: Lines are frequently busy.
-</p>
-
-<p className="mt-2 text-sm text-gray-600">
-  <strong>International Clients:</strong> We do not place outbound calls abroad. 
-  Please call us at your scheduled time or contact us via email.
-</p>
-</div>
-  <iframe
-    src="https://calendly.com/1stcalluk-info/15min"
-    className="rounded-lg border border-gray-200 shadow-sm w-full"
-    style={{
-      height: "580px",
-      minWidth: "100%",
-      border: "0"
-    }}
-    frameBorder="0"
-    scrolling="yes"
-    title="Book a consultation"
-  ></iframe>
-</div>
-
-
-
+        {/* RIGHT — Calendly Booking Widget */}
+        <div className="bg-white rounded-2xl shadow-md p-6">
+          <h2 className="text-2xl font-bold text-[#2d459c] mb-4 text-center">
+            Book a Call (15 Minutes)
+          </h2>
+          <div className="mb-6 text-left">
+            <p className="text-sm text-gray-600">
+              <strong>15-Minute Consultation with James</strong><br />
+              A complimentary session to discuss your enquiry and provide initial guidance. 
+              Online bookings are for <strong>phone consultations only</strong> (Mon–Fri: 09:00–10:00 or after 16:30).
+            </p>
+            <p className="mt-2 text-sm text-gray-600">
+              For in-person, Teams, or extended meetings, please contact us directly. 
+              <strong>Fastest contact:</strong> Call 0115 8453325 (Option 1, then 1). Note: Lines are frequently busy.
+            </p>
+            <p className="mt-2 text-sm text-gray-600">
+              <strong>International Clients:</strong> We do not place outbound calls abroad. 
+              Please call us at your scheduled time or contact us via email.
+            </p>
+          </div>
+          <iframe
+            src="https://calendly.com/1stcalluk-info/15min"
+            className="rounded-lg border border-gray-200 shadow-sm w-full"
+            style={{
+              height: "580px",
+              minWidth: "100%",
+              border: "0"
+            }}
+            frameBorder="0"
+            scrolling="yes"
+            title="Book a consultation"
+          ></iframe>
         </div>
+      </div>
 
-      {/* === MAP (Full Width Below) === */}
-      
+      {/* === MAP === */}
       <div className="max-w-6xl mx-auto mt-12 bg-white rounded-2xl shadow-md overflow-hidden h-[500px] contact-fade">
         <iframe
           title="1st Call UK Immigration advisors Location"
@@ -233,7 +222,6 @@ export default function ContactPage() {
           loading="lazy"
         ></iframe>
       </div>
-
     </main>
   );
 }

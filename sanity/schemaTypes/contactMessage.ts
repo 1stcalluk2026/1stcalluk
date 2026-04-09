@@ -18,6 +18,12 @@ export const contactMessage = defineType({
       validation: (Rule) => Rule.required().email(),
     },
     {
+      name: "phone", // Added phone field
+      title: "Phone Number",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: "message",
       title: "Message",
       type: "text",

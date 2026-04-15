@@ -25,12 +25,17 @@ const nextConfig = {
     ],
   },
 
-  // ✅ ADDED: Redirect /get-started to /contact
+  // ✅ UPDATED: Added wildcard redirect for legal pages
   async redirects() {
     return [
       {
         source: '/get-started',
         destination: '/contact',
+        permanent: true,
+      },
+      {
+        source: '/legal/:path*',
+        destination: '/:path*',
         permanent: true,
       },
     ];

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export const metadata = {
-  title: "1st Call UK | Expert Immigration Services & Visa Advice Nottingham",
+  title: "1st Call UK | Expert Immigration & Visas Nottingham",
   description:
     "Trusted UK immigration advisers in Nottingham. We assist with visas, appeals, family applications, work routes and sponsor licences. 300+ five-star reviews."
 };

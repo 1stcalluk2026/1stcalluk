@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 
 export const metadata = {
-  metadataBase: new URL("https://1stcalluk.com"),
+  metadataBase: new URL("https://www.1stcalluk.com"),
 
   title: {
     default: "1st Call UK Immigration Services",
@@ -18,10 +18,10 @@ export const metadata = {
   openGraph: {
     type: "website",
     siteName: "1st Call UK Immigration Services",
-    url: "https://1stcalluk.com",
+    url: "https://www.1stcalluk.com",
     images: [
       {
-        url: "https://1stcalluk.com/og-image.jpg",
+        url: "https://www.1stcalluk.com/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "1st Call UK Immigration Services",
@@ -34,11 +34,11 @@ export const metadata = {
     title: "1st Call UK Immigration Services",
     description:
       "Trusted UK immigration advisers in Nottingham offering expert support with visas, appeals, family and work routes.",
-    images: ["https://1stcalluk.com/og-image.jpg"],
+    images: ["https://www.1stcalluk.com/og-image.jpg"],
   },
 
   alternates: {
-    canonical: "https://1stcalluk.com",
+    canonical: "https://www.1stcalluk.com",
   },
 
   icons: {
@@ -68,9 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "LegalService",
               name: "1st Call UK Immigration Services",
-              url: "https://1stcalluk.com",
-              logo: "https://1stcalluk.com/1st-calluk-logo02.jpg",
-              image: "https://1stcalluk.com/immigration-law-team.png",
+              url: "https://www.1stcalluk.com",
+              logo: "https://www.1stcalluk.com/1st-calluk-logo02.jpg",
+              image: "https://www.1stcalluk.com/immigration-law-team.png",
               telephone: "+441158453325",
               email: "info@1stcalluk.com",
               address: {
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* ===== WEBSITE SCHEMA (FIXED — NO INVALID SEARCH TARGET) ===== */}
+        {/* ===== WEBSITE SCHEMA ===== */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "1st Call UK Immigration Services",
-              url: "https://1stcalluk.com",
+              url: "https://www.1stcalluk.com",
             }),
           }}
         />
@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   "@type": "ListItem",
                   position: 1,
                   name: "Home",
-                  item: "https://1stcalluk.com",
+                  item: "https://www.1stcalluk.com",
                 },
               ],
             }),
@@ -126,35 +126,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
        {/* ===== CHATBASE AI ASSISTANT ===== */}
-<script
-  dangerouslySetInnerHTML={{
-    __html: `(function(){
-      if(!window.chatbase || window.chatbase("getState")!=="initialized"){
-        window.chatbase=(...arguments)=>{
-          if(!window.chatbase.q){window.chatbase.q=[]}
-          window.chatbase.q.push(arguments)
-        };
-        window.chatbase=new Proxy(window.chatbase,{
-          get(target,prop){
-            if(prop==="q"){return target.q}
-            return(...args)=>target(prop,...args)
-          }
-        })
-      }
-      const onLoad=function(){
-        const script=document.createElement("script");
-        script.src="https://www.chatbase.co/embed.min.js";
-        script.id="BpVYDLxfQ4AwaPDDs5_zr";
-        script.domain="www.chatbase.co";
-        document.body.appendChild(script)
-      };
-      if(document.readyState==="complete"){onLoad()}
-      else{window.addEventListener("load",onLoad)}
-    })();`,
-  }}
-/>
-
-
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+              if(!window.chatbase || window.chatbase("getState")!=="initialized"){
+                window.chatbase=(...arguments)=>{
+                  if(!window.chatbase.q){window.chatbase.q=[]}
+                  window.chatbase.q.push(arguments)
+                };
+                window.chatbase=new Proxy(window.chatbase,{
+                  get(target,prop){
+                    if(prop==="q"){return target.q}
+                    return(...args)=>target(prop,...args)
+                  }
+                })
+              }
+              const onLoad=function(){
+                const script=document.createElement("script");
+                script.src="https://www.chatbase.co/embed.min.js";
+                script.id="BpVYDLxfQ4AwaPDDs5_zr";
+                script.domain="www.chatbase.co";
+                document.body.appendChild(script)
+              };
+              if(document.readyState==="complete"){onLoad()}
+              else{window.addEventListener("load",onLoad)}
+            })();`,
+          }}
+        />
       </body>
     </html>
   );

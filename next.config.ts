@@ -16,7 +16,6 @@ const nextConfig = {
         hostname: "cdn.sanity.io",
         pathname: "/**",
       },
-
       // ✅ FIXED: Free Movement RSS images
       {
         protocol: "https",
@@ -24,6 +23,17 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+  },
+
+  // ✅ ADDED: Redirect /get-started to /contact
+  async redirects() {
+    return [
+      {
+        source: '/get-started',
+        destination: '/contact',
+        permanent: true,
+      },
+    ];
   },
 
   async headers() {

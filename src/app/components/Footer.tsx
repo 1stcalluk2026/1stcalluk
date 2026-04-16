@@ -44,28 +44,28 @@ export default function Footer() {
         {/* Columns 2 + 3 — REORDERED ONLY */}
         <div className="md:col-span-2 space-y-10">
 
-          {/* Sister Companies — WITH LOGOS (MOVED ABOVE) */}
+          {/* Sister Companies — WITH LOGOS */}
           <div>
-            <p className="text-gray-300 text-sm mb-4">
+            <p className="text-gray-300 text-sm mb-4 text-center md:text-left">
               Visit our sister companies:
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[460px]">
-
+            <div className="flex flex-wrap gap-6 justify-center md:justify-start">
               {/* Financial Services */}
               <a
-                href="coming-soon"
-                rel="noopener noreferrer"
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
+                href="/coming-soon"
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center w-[220px] min-h-[160px]"
               >
-                <Image
-                  src="/1st-calluk-financial-logo05.jpg"
-                  alt="1st Call UK Financial Services"
-                  width={200}
-                  height={90}
-                  className="object-contain"
-                />
-                <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center">
+                <div className="flex-grow flex items-center justify-center w-full h-[80px]">
+                  <Image
+                    src="/1st-CallUK-financial-logo02.jpg"
+                    alt="1st Call UK Financial Services"
+                    width={180}
+                    height={80}
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center leading-tight">
                   Financial Services
                 </span>
               </a>
@@ -73,21 +73,21 @@ export default function Footer() {
               {/* 1st Call UK Group */}
               <a
                 href="/1stcalluk-group"
-                rel="noopener noreferrer"
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center justify-center w-[220px]"
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center w-[220px] min-h-[160px]"
               >
-                <Image
-                  src="/1st-CallUK-group-logo.jpg"
-                  alt="1st Call UK Group"
-                  width={200}
-                  height={90}
-                  className="object-contain"
-                />
+                <div className="flex-grow flex items-center justify-center w-full h-[80px]">
+                  <Image
+                    src="/1stCallUK_group_logo.png"
+                    alt="1st Call UK Group"
+                    width={180}
+                    height={80}
+                    className="object-contain"
+                  />
+                </div>
                 <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center">
-                  Group
+                  Group Of Companies
                 </span>
               </a>
-
             </div>
           </div>
 

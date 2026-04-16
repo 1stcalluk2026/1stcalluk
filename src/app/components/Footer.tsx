@@ -44,51 +44,41 @@ export default function Footer() {
         {/* Columns 2 + 3 — REORDERED ONLY */}
         <div className="md:col-span-2 space-y-10">
 
-          {/* Sister Companies — WITH LOGOS */}
+         {/* Sister Companies — WITH LOGOS */}
           <div>
             <p className="text-gray-300 text-sm mb-4 text-center md:text-left">
               Visit our sister companies:
             </p>
 
-            <div className="flex flex-wrap gap-6 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               {/* Financial Services */}
               <a
                 href="/coming-soon"
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center w-[220px] min-h-[160px]"
+                className="bg-white rounded-lg shadow-sm hover:shadow-md transition p-3 flex items-center justify-center w-[180px] h-[100px]"
               >
-                <div className="flex-grow flex items-center justify-center w-full h-[80px]">
-                  <Image
-                    src="/1st-CallUK-financial-logo02.jpg"
-                    alt="1st Call UK Financial Services"
-                    width={180}
-                    height={80}
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center leading-tight">
-                  Financial Services
-                </span>
+                <Image
+                  src="/1st-CallUK-financial-logo02.jpg"
+                  alt="1st Call UK Financial Services"
+                  width={150}
+                  height={60}
+                  className="object-contain"
+                />
               </a>
 
-              {/* 1st Call UK Group */}
-              <a
-                href="/1stcalluk-group"
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-4 flex flex-col items-center w-[220px] min-h-[160px]"
-              >
-                <div className="flex-grow flex items-center justify-center w-full h-[80px]">
-                  <Image
-                    src="/1stCallUK_group_logo.png"
-                    alt="1st Call UK Group"
-                    width={180}
-                    height={80}
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-xs font-semibold text-[#2d459c] mt-2 text-center">
-                  Group Of Companies
-                </span>
-              </a>
-            </div>
+             {/* 1st Call UK Group */}
+<a
+  href="/1stcalluk-group"
+  className="bg-white rounded-lg shadow-sm hover:shadow-md transition p-3 flex items-center justify-center w-[180px] h-[100px]"
+>
+  <Image
+    src="/1stCallUK_group_logo02.jpg"
+    alt="1st Call UK Group"
+    width={170} // Increased from 150
+    height={85} // Increased from 60
+    className="object-contain"
+  />
+</a>
+</div>
           </div>
 
           {/* Our Advantages + Legal (MOVED BELOW, CONTENT UNCHANGED) */}

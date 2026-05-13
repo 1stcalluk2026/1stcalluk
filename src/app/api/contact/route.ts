@@ -46,9 +46,11 @@ export async function POST(request: Request) {
     });
 
     // 5. Send admin notification (Professional Lead Report)
+    // FIX: Changed reply_to to replyTo to satisfy TypeScript and the Resend API
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: process.env.EMAIL_TO!,
+      replyTo: email, 
       subject: `New Lead: ${name}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; color: #333;">
@@ -127,15 +129,15 @@ export async function POST(request: Request) {
 
             <div class="footer">
               <table class="logo-table">
-            <tr>
-             <td align="left" style="width: 50%;">
-            <img src="https://www.1stcalluk.com/1st-calluk-logo02.jpg" alt="1st Call UK Logo" height="45" style="display: block; border-radius: 8px;" >
-            </td>
-            <td align="right" style="width: 50%;">
-         <img src="https://www.1stcalluk.com/IAA-logo.jpg" alt="IAA Logo" height="45" style="display: block; border-radius: 8px;" >
-            </td>
-            </tr>
-            </table>
+                <tr>
+                  <td align="left" style="width: 50%;">
+                    <img src="https://www.1stcalluk.com/1st-calluk-logo02.jpg" alt="1st Call UK Logo" height="45" style="display: block; border-radius: 8px;" >
+                  </td>
+                  <td align="right" style="width: 50%;">
+                    <img src="https://www.1stcalluk.com/IAA-logo.jpg" alt="IAA Logo" height="45" style="display: block; border-radius: 8px;" >
+                  </td>
+                </tr>
+              </table>
               
               <div class="details">
                 <strong>Principal Advisor:</strong> James Ramowski<br>

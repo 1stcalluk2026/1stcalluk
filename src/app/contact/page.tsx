@@ -8,18 +8,18 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "", // Added phone to state
+    phone: "",
+    referral: "", // ✅ added
     message: "",
   });
+
   const [status, setStatus] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
-  // Handle reCAPTCHA change directly via component
   const onCaptchaChange = (token: string | null) => {
     setCaptchaToken(token);
   };
 
-  // Fade-in animation
   useEffect(() => {
     const sections = document.querySelectorAll(".contact-fade");
     const observer = new IntersectionObserver(
@@ -38,7 +38,7 @@ export default function ContactPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    
+
     if (!captchaToken) {
       setStatus("error");
       return;
@@ -54,11 +54,17 @@ export default function ContactPage() {
       });
 
       const data = await res.json();
+
       if (data.success) {
         setStatus("sent");
-        // Updated to reset phone field as well
-        setFormData({ name: "", email: "", phone: "", message: "" });
-        setCaptchaToken(null); 
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          referral: "", // ✅ reset
+          message: "",
+        });
+        setCaptchaToken(null);
       } else {
         setStatus("error");
       }
@@ -69,7 +75,6 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 py-16 px-6">
-      {/* Calendly script (DO NOT REMOVE) */}
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="afterInteractive"
@@ -118,7 +123,6 @@ export default function ContactPage() {
               />
             </div>
 
-            {/* Added Telephone Field */}
             <div>
               <label className="block text-gray-600 mb-1">Phone Number</label>
               <input
@@ -131,6 +135,28 @@ export default function ContactPage() {
                 className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
                 placeholder="e.g. +44 7123 456789"
               />
+            </div>
+
+            {/* Referral */}
+            <div>
+              <label className="block text-gray-600 mb-1">
+                Where did you hear about us?
+              </label>
+              <select
+                required
+                value={formData.referral}
+                onChange={(e) =>
+                  setFormData({ ...formData, referral: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 bg-white focus:ring-2 focus:ring-[#2d459c]"
+              >
+                <option value="">Please select an option</option>
+                <option value="Google Search">Google Search</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Recommendation">Recommendation</option>
+                <option value="Advertisement">Advertisement</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
 
             <div>
@@ -146,7 +172,6 @@ export default function ContactPage() {
               />
             </div>
 
-            {/* reCAPTCHA Widget - Updated to React Component */}
             <div className="flex justify-center py-2">
               <ReCAPTCHA
                 sitekey="6LdRaKEsAAAAAGvyAO9Z_0TA6apXxjg8S-v90OCt"

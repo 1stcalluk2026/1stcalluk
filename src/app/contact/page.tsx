@@ -9,12 +9,9 @@ export default function ContactPage() {
     name: "",
     email: "",
     phone: "",
-    referral: "",
+    referral: "", // ✅ added
     message: "",
   });
-
-  const [source, setSource] = useState("");
-  const [otherSource, setOtherSource] = useState("");
 
   const [status, setStatus] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -49,18 +46,11 @@ export default function ContactPage() {
 
     setStatus("sending");
 
-    const referralValue =
-      source === "Other" ? otherSource : source;
-
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          referral: referralValue,
-          captchaToken,
-        }),
+        body: JSON.stringify({ ...formData, captchaToken }),
       });
 
       const data = await res.json();
@@ -71,11 +61,9 @@ export default function ContactPage() {
           name: "",
           email: "",
           phone: "",
-          referral: "",
+          referral: "", // ✅ reset
           message: "",
         });
-        setSource("");
-        setOtherSource("");
         setCaptchaToken(null);
       } else {
         setStatus("error");
@@ -93,80 +81,96 @@ export default function ContactPage() {
       />
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 contact-fade">
+        {/* LEFT — Contact Form */}
         <div className="bg-white rounded-2xl shadow-md p-8">
           <h1 className="text-3xl font-bold text-[#2d459c] mb-4 text-center">
             Contact Us
           </h1>
 
+          <p className="text-gray-700 mb-6 leading-relaxed">
+            You can <strong>send us a message</strong> or <strong>book a call</strong> with our senior
+            immigration advisor <strong>James</strong>.
+            <br /><br />
+            We usually reply to messages within <strong>two working days</strong>.
+          </p>
+
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name */}
-            <input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Full name"
-            />
-
-            {/* Email */}
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Email address"
-            />
-
-            {/* Phone */}
-            <input
-              type="tel"
-              required
-              value={formData.phone}
-              onChange={(e) =>
-                setFormData({ ...formData, phone: e.target.value })
-              }
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Phone number"
-            />
-
-            {/* Referral source */}
             <div>
-              <label className="block text-gray-700 font-medium mb-1">
+              <label className="block text-gray-600 mb-1">Full Name</label>
+              <input
+                type="text"
+                required
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
+                placeholder="Enter your full name"
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-600 mb-1">Email</label>
+              <input
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-600 mb-1">Phone Number</label>
+              <input
+                type="tel"
+                required
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
+                placeholder="e.g. +44 7123 456789"
+              />
+            </div>
+
+            {/* Referral */}
+            <div>
+              <label className="block text-gray-600 mb-1">
                 Where did you hear about us?
               </label>
               <select
                 required
-                value={source}
-                onChange={(e) => setSource(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#102f35] outline-none"
+                value={formData.referral}
+                onChange={(e) =>
+                  setFormData({ ...formData, referral: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 bg-white focus:ring-2 focus:ring-[#2d459c]"
               >
-                <option value="">Select an option</option>
-                <option value="Online Search">Online / Digital Search</option>
+                <option value="">Please select an option</option>
+                <option value="Google Search">Google Search</option>
                 <option value="Social Media">Social Media</option>
-                <option value="Referral">Referral / Word of Mouth</option>
-                <option value="Advertising">Advertising</option>
-                <option value="Job Platform">Job Platform / Recruiter</option>
-                <option value="Content">Blog / Email / Press</option>
+                <option value="Recommendation">Recommendation</option>
+                <option value="Advertisement">Advertisement</option>
                 <option value="Other">Other</option>
               </select>
             </div>
 
-            {source === "Other" && (
-              <input
-                type="text"
+            <div>
+              <label className="block text-gray-600 mb-1">Message</label>
+              <textarea
                 required
-                value={otherSource}
-                onChange={(e) => setOtherSource(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                placeholder="Please specify"
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded-md p-2 h-28 focus:ring-2 focus:ring-[#2d459c]"
+                placeholder="Write your message here..."
               />
-            )}
+            </div>
 
             <div className="flex justify-center py-2">
               <ReCAPTCHA
@@ -178,13 +182,23 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={status === "sending" || !captchaToken}
-              className="w-full bg-[#2d459c] text-white py-2 rounded-md"
+              className="w-full bg-[#2d459c] hover:bg-[#22347a] text-white font-semibold py-2 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === "sending" ? "Sending…" : "Send Message"}
             </button>
+
+            {status === "sent" && (
+              <p className="text-green-600 text-center mt-3">
+                ✅ Message sent successfully!
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-red-600 text-center mt-3">
+                ❌ Verification failed. Please try again.
+              </p>
+            )}
           </form>
         </div>
-    
 
         {/* RIGHT — Calendly Booking Widget */}
         <div className="bg-white rounded-2xl shadow-md p-6">

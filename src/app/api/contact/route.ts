@@ -6,8 +6,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    // 1. Extract the phone along with other fields
-    const { name, email, phone, message, captchaToken } = await request.json();
+    // 1. Extract all fields from the form
+    const { name, email, phone, referral, referralOther, message, captchaToken } = await request.json();
 
     // 2. Validate input and presence of token
     if (!name || !email || !phone || !message || !captchaToken) {
@@ -16,6 +16,9 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    // Determine the source string
+    const source = referral === "Other" ? `Other: ${referralOther}` : referral;
 
     // 3. VERIFY WITH GOOGLE
     const verifyResponse = await fetch(
@@ -33,20 +36,18 @@ export async function POST(request: Request) {
       );
     }
 
-    // --- If we reach here, the user is human! ---
-
     // 4. Save to Sanity
     await writeClient.create({
       _type: "contactMessage",
       name,
       email,
       phone,
+      referral: source, // Added referral to Sanity
       message,
       submittedAt: new Date().toISOString(),
     });
 
     // 5. Send admin notification (Professional Lead Report)
-    // FIX: Changed reply_to to replyTo to satisfy TypeScript and the Resend API
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: process.env.EMAIL_TO!,
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
             
             <table style="width: 100%; margin-bottom: 20px;">
               <tr>
-                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Name:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; width: 150px;"><strong>Name:</strong></td>
                 <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">${name}</td>
               </tr>
               <tr>
@@ -77,6 +78,10 @@ export async function POST(request: Request) {
                 <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
                   <a href="tel:${phone}" style="color: #2d459c; text-decoration: none;">${phone}</a>
                 </td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Source:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">${source || "Not specified"}</td>
               </tr>
             </table>
 
@@ -93,7 +98,7 @@ export async function POST(request: Request) {
       `.trim(),
     });
 
-    // 6. Auto-reply to user (Professional HTML Version)
+    // 6. Auto-reply to user
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: email,

@@ -9,7 +9,8 @@ export default function ContactPage() {
     name: "",
     email: "",
     phone: "",
-    referral: "", // ✅ added
+    referral: "",
+    referralOther: "",
     message: "",
   });
 
@@ -61,7 +62,8 @@ export default function ContactPage() {
           name: "",
           email: "",
           phone: "",
-          referral: "", // ✅ reset
+          referral: "",
+          referralOther: "",
           message: "",
         });
         setCaptchaToken(null);
@@ -81,20 +83,22 @@ export default function ContactPage() {
       />
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 contact-fade">
-        {/* LEFT — Contact Form */}
         <div className="bg-white rounded-2xl shadow-md p-8">
           <h1 className="text-3xl font-bold text-[#2d459c] mb-4 text-center">
             Contact Us
           </h1>
 
           <p className="text-gray-700 mb-6 leading-relaxed">
-            You can <strong>send us a message</strong> or <strong>book a call</strong> with our senior
-            immigration advisor <strong>James</strong>.
-            <br /><br />
-            We usually reply to messages within <strong>two working days</strong>.
+            You can <strong>send us a message</strong> or{" "}
+            <strong>book a call</strong> with our senior immigration advisor{" "}
+            <strong>James</strong>.
+            <br />
+            <br />
+            We usually reply within <strong>two working days</strong>.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Name */}
             <div>
               <label className="block text-gray-600 mb-1">Full Name</label>
               <input
@@ -105,10 +109,10 @@ export default function ContactPage() {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
-                placeholder="Enter your full name"
               />
             </div>
 
+            {/* Email */}
             <div>
               <label className="block text-gray-600 mb-1">Email</label>
               <input
@@ -119,10 +123,10 @@ export default function ContactPage() {
                   setFormData({ ...formData, email: e.target.value })
                 }
                 className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
-                placeholder="you@example.com"
               />
             </div>
 
+            {/* Phone */}
             <div>
               <label className="block text-gray-600 mb-1">Phone Number</label>
               <input
@@ -133,7 +137,6 @@ export default function ContactPage() {
                   setFormData({ ...formData, phone: e.target.value })
                 }
                 className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
-                placeholder="e.g. +44 7123 456789"
               />
             </div>
 
@@ -146,19 +149,47 @@ export default function ContactPage() {
                 required
                 value={formData.referral}
                 onChange={(e) =>
-                  setFormData({ ...formData, referral: e.target.value })
+                  setFormData({
+                    ...formData,
+                    referral: e.target.value,
+                    referralOther: "",
+                  })
                 }
                 className="w-full border border-gray-300 rounded-md p-2 bg-white focus:ring-2 focus:ring-[#2d459c]"
               >
-                <option value="">Please select an option</option>
-                <option value="Google Search">Google Search</option>
+                <option value="">Select an option</option>
+                <option value="Online Search">Online / Digital Search</option>
                 <option value="Social Media">Social Media</option>
-                <option value="Recommendation">Recommendation</option>
-                <option value="Advertisement">Advertisement</option>
+                <option value="Referral">Referral / Word of Mouth</option>
+                <option value="Advertising">Advertising</option>
+                <option value="Job Platform">Job Platform / Recruiter</option>
+                <option value="Content">Blog / Email / Press</option>
                 <option value="Other">Other</option>
               </select>
             </div>
 
+            {/* Other Referral */}
+            {formData.referral === "Other" && (
+              <div>
+                <label className="block text-gray-600 mb-1">
+                  Other (please specify)
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.referralOther}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      referralOther: e.target.value,
+                    })
+                  }
+                  className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-[#2d459c]"
+                />
+              </div>
+            )}
+
+            {/* Message */}
             <div>
               <label className="block text-gray-600 mb-1">Message</label>
               <textarea
@@ -168,10 +199,10 @@ export default function ContactPage() {
                   setFormData({ ...formData, message: e.target.value })
                 }
                 className="w-full border border-gray-300 rounded-md p-2 h-28 focus:ring-2 focus:ring-[#2d459c]"
-                placeholder="Write your message here..."
               />
             </div>
 
+            {/* CAPTCHA */}
             <div className="flex justify-center py-2">
               <ReCAPTCHA
                 sitekey="6LdRaKEsAAAAAGvyAO9Z_0TA6apXxjg8S-v90OCt"
@@ -182,7 +213,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={status === "sending" || !captchaToken}
-              className="w-full bg-[#2d459c] hover:bg-[#22347a] text-white font-semibold py-2 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#2d459c] hover:bg-[#22347a] text-white font-semibold py-2 rounded-md transition disabled:opacity-50"
             >
               {status === "sending" ? "Sending…" : "Send Message"}
             </button>
@@ -192,6 +223,7 @@ export default function ContactPage() {
                 ✅ Message sent successfully!
               </p>
             )}
+
             {status === "error" && (
               <p className="text-red-600 text-center mt-3">
                 ❌ Verification failed. Please try again.

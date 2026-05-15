@@ -53,7 +53,9 @@ export default function Footer() {
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               {/* Financial Services */}
               <a
-                href="/coming-soon"
+                href="https://www.1stcalluk.financial"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-white rounded-lg shadow-sm hover:shadow-md transition p-3 flex items-center justify-center w-[180px] h-[100px]"
               >
                 <Image

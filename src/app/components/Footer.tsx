@@ -69,7 +69,9 @@ export default function Footer() {
 
              {/* 1st Call UK Group */}
 <a
-  href="/1stcalluk-group"
+  href="https://www.1stcalluk.co.uk/"
+  target="_blank"
+  rel="noopener noreferrer"
   className="bg-white rounded-lg shadow-sm hover:shadow-md transition p-3 flex items-center justify-center w-[180px] h-[100px]"
 >
   <Image

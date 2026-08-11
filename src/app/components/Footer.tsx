@@ -133,33 +133,33 @@ export default function Footer() {
           <p className="text-white/70 text-sm mb-4 text-center md:text-left">
             Visit our sister companies
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto md:mx-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto md:mx-0">
             <a
               href="https://www.1stcalluk.financial"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white rounded-md px-3 py-2.5 flex items-center justify-center h-16 transition hover:shadow-md"
+              className="bg-white rounded-md px-3 py-2.5 flex items-center justify-center h-[88px] transition hover:shadow-md"
             >
               <Image
-                src="/1st-CallUK-financial-logo02.jpg"
+                src="/1stCallUK_financial-services-footer.jpg"
                 alt="1st Call UK Financial Services"
-                width={180}
-                height={56}
-                className="max-h-10 w-auto object-contain"
+                width={360}
+                height={121}
+                className="h-[72px] w-auto max-w-full object-contain"
               />
             </a>
             <a
               href="https://www.1stcalluk.co.uk/"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white rounded-md px-3 py-2.5 flex items-center justify-center h-16 transition hover:shadow-md"
+              className="bg-white rounded-md px-3 py-2.5 flex items-center justify-center h-[88px] transition hover:shadow-md"
             >
               <Image
-                src="/1stCallUK_group_logo02.jpg"
+                src="/1stCallUK_group_logo-footer.jpg"
                 alt="1st Call UK Group"
-                width={180}
-                height={56}
-                className="max-h-10 w-auto object-contain"
+                width={360}
+                height={121}
+                className="h-[72px] w-auto max-w-full object-contain"
               />
             </a>
           </div>

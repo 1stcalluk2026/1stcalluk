@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               name: "1st Call UK Immigration Services",
               url: "https://www.1stcalluk.com",
               logo: "https://www.1stcalluk.com/1st-calluk-logo02.jpg",
-              image: "https://www.1stcalluk.com/immigration-law-team.png",
+              image: "https://www.1stcalluk.com/immigration-law-team.jpg",
               telephone: "+441158453325",
               email: "info@1stcalluk.com",
               address: {

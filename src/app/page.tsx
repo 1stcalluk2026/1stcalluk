@@ -12,7 +12,7 @@ export default function HomePage() {
       {/* ===== Hero Section ===== */}
       <header className="relative h-36 sm:h-[50vh] md:h-[55vh] overflow-hidden mb-8">
         <Image
-          src="/immigration-law-team.png"
+          src="/immigration-law-team.jpg"
           alt="UK immigration law team"
           fill
           priority

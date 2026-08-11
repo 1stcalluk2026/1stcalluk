@@ -57,10 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
 
-        <div className="bg-black text-gray-400 text-center py-4 text-sm border-t border-gray-800">
-          © {new Date().getFullYear()} 1st Call UK Immigration Services. All rights reserved.
-        </div>
-
         {/* ===== ORGANISATION SCHEMA ===== */}
         <script
           type="application/ld+json"

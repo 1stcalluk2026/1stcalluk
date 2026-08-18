@@ -140,12 +140,12 @@ export default function Footer() {
           <p className="sm:mr-8">
             Website by{" "}
             <a
-              href="https://www.karoldigital.co.uk/"
+              href="https://www.1stcalluk.website/"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-white transition"
             >
-              Karol Digital
+              1st Call UK Web &amp; Digital
             </a>
           </p>
         </div>

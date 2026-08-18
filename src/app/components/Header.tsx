@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import DownloadAppButton from "./DownloadAppButton";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,7 +18,14 @@ export default function Header() {
 
       {/* GROUP BAR */}
       <div className="bg-[#233a86]">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-end">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-end gap-2">
+          <DownloadAppButton source="immigration" />
+          <Link
+            href="https://1st-calluk-portal.vercel.app/immigration"
+            className="inline-flex items-center rounded-full bg-white/10 text-white border border-white/30 px-4 py-1.5 text-xs font-medium hover:bg-white/20 transition-all duration-200"
+          >
+            Client portal
+          </Link>
           <Link
             href="https://www.1stcalluk.co.uk/"
             target="_blank"
@@ -130,7 +138,7 @@ export default function Header() {
       {/* MOBILE MENU */}
       <div
         className={`lg:hidden absolute left-0 right-0 w-full bg-[#2d459c] shadow-lg transition-[max-height,opacity] duration-300 overflow-hidden ${
-          menuOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-[640px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="flex flex-col px-6 py-5 space-y-4 text-base font-medium">
@@ -154,6 +162,8 @@ export default function Header() {
               {label}
             </Link>
           ))}
+
+          <DownloadAppButton source="immigration" placement="nav" />
 
           <div className="flex gap-3 pt-2">
             <a

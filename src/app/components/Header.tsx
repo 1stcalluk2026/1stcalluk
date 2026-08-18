@@ -6,6 +6,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import DownloadAppButton from "./DownloadAppButton";
 
+const PORTAL_ORIGIN = (
+  process.env.NEXT_PUBLIC_PORTAL_URL || "https://1st-calluk-portal.vercel.app"
+).replace(/\/$/, "");
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -21,7 +25,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 flex justify-end gap-2">
           <DownloadAppButton source="immigration" />
           <Link
-            href="https://1st-calluk-portal.vercel.app/immigration"
+            href={`${PORTAL_ORIGIN}/immigration`}
             className="inline-flex items-center rounded-full bg-white/10 text-white border border-white/30 px-4 py-1.5 text-xs font-medium hover:bg-white/20 transition-all duration-200"
           >
             Client portal

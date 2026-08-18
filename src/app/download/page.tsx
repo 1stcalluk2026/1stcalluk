@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { parseDownloadSource, portalHref } from "../../../lib/app-download";
+import { parseDownloadSource, portalHref } from "../../lib/app-download";
 
 export const metadata: Metadata = {
   title: "Download our app",

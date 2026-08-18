@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import DownloadAppButton from "./DownloadAppButton";
 
 const PORTAL_ORIGIN = (
-  process.env.NEXT_PUBLIC_PORTAL_URL || "https://1st-calluk-portal.vercel.app"
+  process.env.NEXT_PUBLIC_PORTAL_URL || "https://1st-calluk-portal-1stcall-uk.vercel.app"
 ).replace(/\/$/, "");
 
 export default function Header() {

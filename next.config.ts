@@ -38,6 +38,11 @@ const nextConfig = {
         destination: '/:path*',
         permanent: true,
       },
+      {
+        source: '/download',
+        destination: 'https://app.1stcalluk.co.uk/download',
+        permanent: true,
+      },
     ];
   },
 

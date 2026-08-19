@@ -1,4 +1,5 @@
 import "./globals.css";
+import CookieBanner from "./components/CookieBanner";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
@@ -56,6 +57,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
+        <CookieBanner
+          logoSrc="/1st-calluk-logo02.jpg"
+          logoAlt="1st Call UK Immigration Services"
+          policyHref="/cookie-policy"
+        />
 
         {/* ===== ORGANISATION SCHEMA ===== */}
         <script

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { HOME_FAQS, homeFaqPageSchema } from "@/lib/home-faqs";
 
 export const metadata = {
   title: "1st Call UK | Expert Immigration & Visas Nottingham",
@@ -8,6 +9,13 @@ export const metadata = {
 
 export default function HomePage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeFaqPageSchema()),
+        }}
+      />
     <main className="min-h-screen bg-gray-50">
       {/* ===== Hero Section ===== */}
       <header className="relative h-36 sm:h-[50vh] md:h-[55vh] overflow-hidden mb-8">
@@ -161,31 +169,10 @@ export default function HomePage() {
           </h3>
           
           <div className="space-y-4">
-            {[
-              {
-                q: "What UK immigration services do you offer in Nottingham?",
-                a: "We provide comprehensive specialist advice on all aspects of UK immigration law. This includes Spouse and Family visas, Skilled Worker and Business visas, Student visas, Indefinite Leave to Remain (ILR), and British Citizenship applications."
-              },
-              {
-                q: "How do I know if my UK visa application will be successful?",
-                a: "While no one can guarantee a result from the Home Office, our 18 years of experience allow us to provide a highly accurate assessment of your chances. We perform a rigorous review of your documents to ensure you meet all requirements before submission."
-              },
-              {
-                q: "Are your immigration advisors regulated?",
-                a: "Yes. 1st Call UK Immigration Services is fully authorised and regulated by the Immigration Advice Authority (IAA), Ref No: F200800049. We adhere to strict professional standards for your peace of mind."
-              },
-              {
-                q: "Do you offer consultations for complex immigration appeals?",
-                a: "Absolutely. We have a strong track record in handling challenging appeals and refusals. We review your refusal letter and provide a clear strategy on the best grounds for appeal or a fresh application."
-              },
-              {
-                q: "How long does the immigration process usually take?",
-                a: "Processing times vary. Generally, standard applications take 3 to 12 weeks. We always provide you with the most current estimated timelines based on the latest Home Office data and priority service availability."
-              }
-            ].map((faq, index) => (
+            {HOME_FAQS.map((faq, index) => (
               <details key={index} className="group border border-gray-200 rounded-lg bg-gray-50 overflow-hidden transition-all duration-300">
                 <summary className="flex items-center justify-between font-semibold p-5 cursor-pointer list-none text-[#2d459c] hover:bg-gray-100 transition-colors">
-                  <span>{faq.q}</span>
+                  <span>{faq.question}</span>
                   <span className="transition group-open:rotate-180">
                     <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24">
                       <path d="M6 9l6 6 6-6"></path>
@@ -193,7 +180,7 @@ export default function HomePage() {
                   </span>
                 </summary>
                 <div className="px-5 pb-5 text-gray-600 animate-fade-in">
-                  <p className="leading-relaxed">{faq.a}</p>
+                  <p className="leading-relaxed">{faq.answer}</p>
                 </div>
               </details>
             ))}
@@ -201,5 +188,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+    </>
   );
 }

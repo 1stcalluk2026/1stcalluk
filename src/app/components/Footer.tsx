@@ -25,12 +25,8 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 items-start pb-10 border-b border-white/15">
           {/* IAA + We Can Help */}
           <div className="flex flex-col items-center md:items-start gap-4">
-            <a
-              href="https://www.yoshki.co/validation-results/?111105115099+109101109098101114098097100103101+100101102097117108116046115118103+104116116112115058047047049115116099097108108117107046099111109047"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-lg p-2 shadow-sm transition hover:shadow-md"
-            >
+            {/* Static IAA logo look; invisible Yoshki iframe handles live validation on production */}
+            <div className="relative bg-white rounded-lg p-2 shadow-sm transition hover:shadow-md">
               <Image
                 src="/IAA-logo.jpg"
                 alt="IAA Immigration Advice Authority logo"
@@ -38,7 +34,12 @@ export default function Footer() {
                 height={160}
                 className="w-24 h-auto"
               />
-            </a>
+              <iframe
+                title="IAA membership verification"
+                src="https://cdn2.yoshki.com/badgeframe?10"
+                className="absolute inset-0 h-full w-full border-0 opacity-0"
+              />
+            </div>
             <p className="text-white/60 text-xs text-center md:text-left">
               Regulated by the Immigration Advice Authority
             </p>
